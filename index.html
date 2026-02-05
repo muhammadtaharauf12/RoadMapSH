@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Developer Roadmaps - roadmap.sh Clone</title>
+    <style>
+        /* --- GLOBAL RESET --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* --- ANNOUNCEMENT BANNER --- */
+        .banner {
+            background-color: #2563eb;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .banner a {
+            color: #ffffff;
+            text-decoration: underline;
+            margin-left: 10px;
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 80px;
+            background-color: #000000;
+            border-bottom: 1px solid #27272a;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo-area {
+            font-size: 22px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            background: #ffffff;
+            color: #000000;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 900;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: #a1a1aa;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+        }
+
+        .btn-login {
+            background: #ffffff;
+            color: #000000;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            padding: 100px 20px;
+            text-align: center;
+            background-image: radial-gradient(circle at 50% -20%, #1e1b4b 0%, #000000 70%);
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 800;
+            letter-spacing: -2px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            color: #a1a1aa;
+            font-size: 19px;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+        }
+
+        .search-box {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 18px 25px;
+            background: #09090b;
+            border: 1px solid #27272a;
+            border-radius: 12px;
+            color: white;
+            font-size: 16px;
+            outline: none;
+        }
+
+        /* --- GRID STYLING --- */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .section-header {
+            margin: 60px 0 30px 0;
+            border-left: 4px solid #facc15;
+            padding-left: 20px;
+        }
+
+        .section-header h2 {
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .roadmap-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .card {
+            background-color: #0c111d;
+            border: 1px solid #1e293b;
+            border-radius: 8px;
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .card:hover {
+            background-color: #1e293b;
+            border-color: #334155;
+        }
+
+        .card span {
+            color: #94a3b8;
+            font-size: 15px;
+            font-weight: 400;
+        }
+
+        .bookmark {
+            width: 14px;
+            height: 14px;
+            border: 1.5px solid #334155;
+            border-bottom: 0;
+            position: relative;
+        }
+
+        .bookmark::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: -1.5px;
+            width: 0;
+            height: 0;
+            border-left: 7.2px solid transparent;
+            border-right: 7.2px solid transparent;
+            border-bottom: 5px solid #0c111d;
+        }
+
+        .card:hover .bookmark::after {
+            border-bottom-color: #1e293b;
+        }
+
+        .card-dashed {
+            border: 1px dashed #1e293b;
+            background: transparent;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .plus {
+            font-size: 18px;
+            color: #94a3b8;
+        }
+
+        /* --- LIGHT SECTIONS (GUIDES, MAINTENANCE, COMMUNITY) --- */
+        .light-section {
+            background-color: #ffffff;
+            color: #000000;
+            padding: 80px 20px;
+        }
+
+        .content-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Guides List */
+        .guides-list {
+            margin-top: 40px;
+        }
+
+        .guide-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .guide-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 15px;
+            color: #334155;
+        }
+
+        .badge-new {
+            background-color: #dcfce7;
+            color: #166534;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .guide-type {
+            color: #94a3b8;
+            font-size: 13px;
+        }
+
+        .btn-black {
+            background-color: #000000;
+            color: #ffffff;
+            padding: 10px 24px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 30px;
+        }
+
+        /* Actively Maintained Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+            margin-top: 50px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: #e2e8f0;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 25px;
+            display: flex;
+            gap: 20px;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -26px;
+            top: 6px;
+            width: 14px;
+            height: 14px;
+            background-color: #cbd5e1;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .timeline-date {
+            color: #94a3b8;
+            font-size: 14px;
+            min-width: 90px;
+        }
+
+        .timeline-text {
+            font-weight: 600;
+            color: #0f172a;
+        }
+
+        /* Community Stats */
+        .stats-row {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        .stat-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .stat-rank {
+            color: #2563eb;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .stat-num {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+
+        .stat-btn {
+            border: 1px solid #e2e8f0;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            margin-top: 10px;
+            cursor: pointer;
+            background: #fff;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: #0f172a;
+            border-top: 1px solid #1e293b;
+            padding: 80px 20px;
+            color: #94a3b8;
+        }
+
+        .footer-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+        }
+
+        .footer-brand p { color: #94a3b8; font-size: 14px; margin-top: 10px;}
+        .footer-col h4 { font-size: 14px; margin-bottom: 20px; color: #ffffff; }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 12px; }
+        .footer-col ul li a { color: #94a3b8; text-decoration: none; font-size: 14px; }
+
+        @media (max-width: 900px) { 
+            .roadmap-grid { grid-template-columns: repeat(2, 1fr); } 
+            .stats-row { flex-direction: column; gap: 40px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="banner">
+        We now have a YouTube Channel! <a href="#">Subscribe Now &rarr;</a>
+    </div>
+
+    <nav>
+        <div class="logo-area"><span class="logo-icon">r</span> roadmap.sh</div>
+        <div class="nav-links">
+            <a href="#">Roadmaps</a>
+            <a href="#">Guides</a>
+            <a href="#">Videos</a>
+            <a href="#">Teams</a>
+        </div>
+        <div class="nav-right">
+            <button class="btn-login">Sign Up</button>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <h1>Developer Roadmaps</h1>
+        <p>roadmap.sh is a community effort to create roadmaps, guides and other educational content to help guide developers in picking up the path.</p>
+        <div class="search-box">
+            <input type="text" placeholder="Search Roadmaps (e.g. Frontend, Backend, DevOps)...">
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="section-header"><h2>Role Based Roadmaps</h2></div>
+        <div class="roadmap-grid">
+            <a href="#" class="card"><span>Frontend</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>Backend</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>Full Stack</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>DevOps</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>DevSecOps</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>Data Analyst</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>AI Engineer</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>AI and Data Scientist</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>Data Engineer</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>Android</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>Machine Learning</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>PostgreSQL</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>iOS</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>Blockchain</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>QA</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>Software Architect</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>Cyber Security</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>UX Design</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>Technical Writer</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>Game Developer</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>Server Side Game Developer</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>MLOps</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>Product Manager</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>Engineering Manager</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>Developer Relations</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>BI Analyst</span><div class="bookmark"></div></a>
+            <a href="#" class="card card-dashed"><span class="plus">+</span><span>Create your own Roadmap</span></a>
+        </div>
+
+        <div class="section-header"><h2>Skill Based Roadmaps</h2></div>
+        <div class="roadmap-grid">
+            <a href="#" class="card"><span>SQL</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>Computer Science</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>React</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>Vue</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>Angular</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>JavaScript</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>TypeScript</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>Node.js</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>Python</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>System Design</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>Java</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>ASP.NET Core</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>API Design</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>Spring Boot</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>Flutter</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>C++</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>Rust</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>Go Roadmap</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>Design and Architecture</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>GraphQL</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>React Native</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>Design System</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>Prompt Engineering</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>MongoDB</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>Linux</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>Kubernetes</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>Docker</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>AWS</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>Terraform</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>Data Structures & Algorithms</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>Redis</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>Git and GitHub</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>PHP</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>Cloudflare</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>AI Red Teaming</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>AI Agents</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>Next.js</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>Code Review</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>Kotlin</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>HTML</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>CSS</span><div class="bookmark"></div></a>
+            <a href="#" class="card"><span>Swift & Swift UI</span><div class="bookmark"></div></a>
+        </div>
+    </main>
+
+    <section class="light-section">
+        <div class="content-container">
+            <h1 style="font-size: 36px; font-weight: 800;">Guides</h1>
+            <div class="guides-list">
+                <div class="guide-row">
+                    <div class="guide-info">Java vs Kotlin Comparison: Which Language Should You Choose? <span class="badge-new">NEW · DECEMBER</span></div>
+                    <div class="guide-type">Textual</div>
+                </div>
+                <div class="guide-row">
+                    <div class="guide-info">Hashmaps in Python: Master Implementation and Use Cases <span class="badge-new">NEW · JANUARY</span></div>
+                    <div class="guide-type">Textual</div>
+                </div>
+                <div class="guide-row">
+                    <div class="guide-info">Python Nonlocal Keyword Explained by Our Experts</div>
+                    <div class="guide-type">Textual</div>
+                </div>
+                <div class="guide-row">
+                    <div class="guide-info">Encapsulation in Python: All You Need to Know</div>
+                    <div class="guide-type">Textual</div>
+                </div>
+                <div class="guide-row">
+                    <div class="guide-info">Top 30 System Design Interview Questions (+ Quiz!)</div>
+                    <div class="guide-type">Question</div>
+                </div>
+            </div>
+            <a href="#" class="btn-black">View All Guides &rarr;</a>
+        </div>
+    </section>
+
+    <section class="light-section" style="text-align: center; border-top: 1px solid #f1f5f9;">
+        <div class="content-container">
+            <h1 style="font-size: 36px; font-weight: 800;">🚀 Actively Maintained</h1>
+            <p style="color: #64748b; margin-top: 10px;">We are always improving our content, adding new resources and adding features to enhance your learning experience.</p>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">31 Jan, 2026</div>
+                    <div class="timeline-text">Ruby, Django and Roadmap Reviews</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">31 Dec, 2025</div>
+                    <div class="timeline-text">Elasticsearch, WordPress, DevSecOps and AI in Guides</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">18 Nov, 2025</div>
+                    <div class="timeline-text">Swift & SwiftUI, Shell/Bash, Laravel and Feedback Button</div>
+                </div>
+            </div>
+            
+            <div style="display: flex; justify-content: center; gap: 15px;">
+                <a href="#" class="btn-black">View Full Changelog</a>
+                <a href="#" class="btn-black" style="background: transparent; border: 1px solid #000; color: #000;">Subscribe for Notifications</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="light-section" style="text-align: center; border-top: 1px solid #f1f5f9;">
+        <div class="content-container">
+            <h1 style="font-size: 48px; font-weight: 800;">Join the Community</h1>
+            <p style="color: #64748b; margin-top: 15px;">roadmap.sh is the <span style="text-decoration: underline;">6th most starred project on GitHub</span> and is visited by hundreds of thousands of developers every month.</p>
+            
+            <div class="stats-row">
+                <div class="stat-card">
+                    <span class="stat-rank">Rank 6th out of 28M!</span>
+                    <span class="stat-num">349K</span>
+                    <span style="color: #64748b;">GitHub Stars</span>
+                    <button class="stat-btn">★ Star us on GitHub</button>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-rank">+90k every month</span>
+                    <span class="stat-num">+2.1M</span>
+                    <span style="color: #64748b;">Registered Users</span>
+                    <button class="stat-btn">👤 Register yourself</button>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-rank">+2k every month</span>
+                    <span class="stat-num">44K</span>
+                    <span style="color: #64748b;">Discord Members</span>
+                    <button class="stat-btn">👥 Join on Discord</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="logo-area" style="margin-bottom: 20px;"><span class="logo-icon">r</span> roadmap.sh</div>
+                <p>Community created roadmaps, best practices, projects, articles, resources and journeys to help you choose your path and grow in your career.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Roadmaps</h4>
+                <ul><li><a href="#">Frontend</a></li><li><a href="#">Backend</a></li><li><a href="#">DevOps</a></li></ul>
+            </div>
+            <div class="footer-col">
+                <h4>Resources</h4>
+                <ul><li><a href="#">Guides</a></li><li><a href="#">Videos</a></li><li><a href="#">FAQs</a></li><li><a href="#">YouTube</a></li></ul>
+            </div>
+            <div class="footer-col">
+                <h4>Project</h4>
+                <ul><li><a href="#">About</a></li><li><a href="#">Terms</a></li><li><a href="#">Privacy</a></li></ul>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 60px; color: #52525b; font-size: 13px;">&copy; 2026 roadmap.sh. All rights reserved.</div>
+    </footer>
+
+</body>
+</html>
